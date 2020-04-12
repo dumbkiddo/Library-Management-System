@@ -1,41 +1,54 @@
 package kz.iitu.libmanagement.controller;
 
 import kz.iitu.libmanagement.entity.Book;
-import kz.iitu.libmanagement.entity.BookTransactionStatus;
-import kz.iitu.libmanagement.entity.LibraryMember;
+import kz.iitu.libmanagement.repository.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Scanner;
 
+@RestController
+@RequestMapping("/books")
 public class BookController {
-    @PersistenceContext
-    private EntityManager entityManager;
 
-    public String request(){
-        System.out.println("Enter book title to request: ");
-        Scanner scan = new Scanner(System.in);
-        String requestName = scan.nextLine();
-        return requestName;
+    @Autowired
+    private BookRepository bookRepository;
+
+    @GetMapping("")
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 
-    public void borrowBook(Long clientId, Long bookId) {
-            LibraryMember member = entityManager.find(LibraryMember.class, clientId);
-            Book book = entityManager.find(Book.class, bookId);
-            if (book.getStatus().equals("RETURNED")) {
-                book.setStatus(BookTransactionStatus.ISSUED);
-            } else {
-                System.out.println("Book is not available!");
-            }
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable("id") Long id) {
+        return bookRepository.findById(id).get();
     }
 
-    public void showDetails(List<?> entities, String message) {
-        System.out.println("-----" + message + "-----");
-        for (Object entity : entities) {
-            System.out.println(entity);
-        }
-        System.out.println("--------------------------");
+    @GetMapping("/find_title/")
+    public List<Book> getBookByTitle(@RequestParam String title) {
+        return bookRepository.findByTitle(title);
+    }
+
+    @GetMapping("/find_author/")
+    public List<Book> getBookByAuthor(@RequestParam String author) {
+        return bookRepository.findByAuthor(author);
+    }
+
+    @PostMapping("")
+    public Book createBook(@RequestBody Book book) {
+        return bookRepository.saveAndFlush(book);
+    }
+
+    @DeleteMapping("/{id}")
+    public Book deleteBook(@PathVariable("id") Long id) {
+        bookRepository.deleteById(id);
+        return bookRepository.saveAndFlush(bookRepository.findById(id).get());
+    }
+
+    @PutMapping("/{id}")
+    public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
+        book.setId(id);
+        return bookRepository.saveAndFlush(book);
     }
 
 }

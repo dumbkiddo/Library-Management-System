@@ -1,6 +1,7 @@
 package kz.iitu.libmanagement.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Genre {
@@ -10,12 +11,13 @@ public class Genre {
     private Long id;
     private String type;
 
-    @Column(name = "book_id")
-    private Long bookId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", insertable = false, updatable = false)
-    private Book book;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "book_genres",
+            joinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id")}
+    )
+    private List<Book> booksgenre;
 
     public Long getId() {
         return id;
@@ -31,23 +33,6 @@ public class Genre {
 
     public String getType() {
         return type;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     @Override

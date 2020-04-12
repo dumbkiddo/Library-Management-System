@@ -12,12 +12,16 @@ public class Book {
     private String title;
     private String author;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    private List<Genre> genres;
+    @ManyToMany(mappedBy = "booksgenre", fetch = FetchType.LAZY)
+    private List<Genre> genreList;
+
     @Enumerated(EnumType.STRING)
     private BookTransactionStatus status;
     @ManyToMany(mappedBy = "bookList", fetch = FetchType.LAZY)
     private List<LibraryMember> memberList;
+
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    private List<BookCollection> bookCollections;
 
     public Long getId() {
         return id;
@@ -45,11 +49,11 @@ public class Book {
 
 
     public void setGenres(List<Genre> genres) {
-        this.genres = genres;
+        this.genreList = genres;
     }
 
     public List<Genre> getGenres() {
-        return genres;
+        return genreList;
     }
 
     public BookTransactionStatus getStatus() {
@@ -60,17 +64,11 @@ public class Book {
         this.status = status;
     }
 
-    public List<LibraryMember> getMemberList() {
-        return memberList;
-    }
-
-    public void setMemberList(List<LibraryMember> memberList) {
-        this.memberList = memberList;
-    }
 
     @Override
     public String toString() {
-        return  "Book ID = " + id + ", title = '" + title + '\'' + ", author = '" + author + '\'' + ", genre =" + genres;
+        return  "Book ID = " + id + ", title = '" + title + '\'' + ", author = '" + author + '\'';
+        ///+ ", genre =" + genres;
     }
 }
 
