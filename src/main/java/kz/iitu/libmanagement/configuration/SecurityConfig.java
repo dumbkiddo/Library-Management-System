@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/create").hasAuthority("ADMIN")
                 .antMatchers("/users/update").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
+                .and().formLogin()
                 .and()
                 // What's the authenticationManager()?
                 // An object provided by WebSecurityConfigurerAdapter, used to authenticate the user passing user's credentials

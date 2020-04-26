@@ -1,12 +1,13 @@
 package kz.iitu.libmanagement.controller;
 
+import io.swagger.annotations.Api;
 import kz.iitu.libmanagement.entity.Genre;
 import kz.iitu.libmanagement.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Api(value="Book Genre Controller")
 @RestController
 @RequestMapping("/genres")
 public class GenreController {

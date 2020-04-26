@@ -1,8 +1,12 @@
 package kz.iitu.libmanagement.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
-
+@Getter @Setter @NoArgsConstructor
 @Entity
 public class BookCollection {
 
@@ -19,29 +23,29 @@ public class BookCollection {
 
     private List<Book> books;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(String author) {
+//        this.author = author;
+//    }
+//
+//    public void setBooks(List<Book> books) {
+//        this.books = books;
+//    }
+//
+//    public List<Book> getBooks() {
+//        return books;
+//    }
 
     @Override
     public String toString() {

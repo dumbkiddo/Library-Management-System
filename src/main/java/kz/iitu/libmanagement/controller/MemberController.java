@@ -1,12 +1,13 @@
 package kz.iitu.libmanagement.controller;
 
+import io.swagger.annotations.Api;
 import kz.iitu.libmanagement.entity.LibraryMember;
 import kz.iitu.libmanagement.repository.LibraryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Api(value="Library Member Controller")
 @RestController
 @RequestMapping("/members")
 public class MemberController {

@@ -1,12 +1,13 @@
 package kz.iitu.libmanagement.controller;
 
+import io.swagger.annotations.Api;
 import kz.iitu.libmanagement.entity.BookCollection;
 import kz.iitu.libmanagement.repository.BookCollectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@Api(value=" Book Collection Controller")
 @RestController
 @RequestMapping("/collections")
 public class CollectionController {
